@@ -45,12 +45,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
       - name: Bump patch version
         if: github.event_name == 'push'
         run: pnpm version patch --no-git-tag-version
 
       - name: Build
         run: pnpm run build
+
+      - name: n8n security scan
+        run: npx @n8n/scan-community-package n8n-nodes-builde2e --local
 
       - name: Test
         run: pnpm run test
