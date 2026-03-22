@@ -1,0 +1,51 @@
+{
+	"name": "n8n-nodes-builde2e",
+	"version": "1.0.0",
+	"description": "n8n community node for BuildE2E – web scraping and search",
+	"keywords": [
+		"n8n-community-node-package",
+		"n8n",
+		"builde2e",
+		"web-scraping",
+		"search"
+	],
+	"license": "MIT",
+	"author": {
+		"name": "BuildE2E",
+		"email": "aditya@knowdeep.ai"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/builde2e/builde2e",
+		"directory": "packages/n8n-nodes-builde2e"
+	},
+	"main": "dist/nodes/BuildE2E/BuildE2E.node.js",
+	"scripts": {
+		"build": "tsc && cp nodes/BuildE2E/BuildE2E.node.json dist/nodes/BuildE2E/ && cp nodes/BuildE2E/builde2e.svg dist/nodes/BuildE2E/",
+		"dev": "tsc --watch",
+		"typecheck": "tsc --noEmit",
+		"clean": "rm -rf dist"
+	},
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"credentials": [
+			"dist/credentials/BuildE2EApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/BuildE2E/BuildE2E.node.js"
+		]
+	},
+	"files": [
+		"dist",
+		"README.md",
+		"LICENSE"
+	],
+	"peerDependencies": {
+		"n8n-workflow": ">=1.0.0"
+	},
+	"devDependencies": {
+		"n8n-workflow": "^1.70.0",
+		"typescript": "^5.3.0",
+		"@types/node": "^20.0.0"
+	}
+}
