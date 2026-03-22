@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-builde2e",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "n8n community node for BuildE2E – web scraping and search",
 	"keywords": [
 		"n8n-community-node-package",
@@ -12,7 +12,7 @@
 	"license": "MIT",
 	"author": {
 		"name": "BuildE2E",
-		"email": "aditya@knowdeep.ai"
+		"email": "support@builde2e.com"
 	},
 	"repository": {
 		"type": "git",
@@ -23,8 +23,10 @@
 	},
 	"main": "dist/nodes/BuildE2E/BuildE2E.node.js",
 	"scripts": {
-		"build": "tsc && cp nodes/BuildE2E/BuildE2E.node.json dist/nodes/BuildE2E/ && cp nodes/BuildE2E/builde2e.svg dist/nodes/BuildE2E/",
-		"dev": "tsc --watch",
+		"build": "tsc -p tsconfig.json && cp nodes/BuildE2E/BuildE2E.node.json dist/nodes/BuildE2E/ && cp nodes/BuildE2E/builde2e.svg dist/nodes/BuildE2E/",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
 		"typecheck": "tsc --noEmit",
 		"clean": "rm -rf dist",
 		"test": "tsx --require dotenv/config test/buildE2E.test.ts"
@@ -47,8 +49,11 @@
 		"n8n-workflow": ">=1.0.0"
 	},
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@n8n/node-cli": "^0.23.0",
 		"@types/node": "^20.0.0",
 		"dotenv": "^17.3.1",
+		"eslint": "^9.0.0",
 		"n8n-workflow": "^1.70.0",
 		"tsx": "^4.21.0",
 		"typescript": "^5.3.0"

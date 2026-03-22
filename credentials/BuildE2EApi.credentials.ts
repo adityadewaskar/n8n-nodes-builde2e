@@ -9,6 +9,7 @@ export class BuildE2EApi implements ICredentialType {
 	name = 'buildE2EApi';
 	displayName = 'BuildE2E API';
 	documentationUrl = 'https://docs.builde2e.com';
+	icon = { light: 'file:../nodes/BuildE2E/builde2e.svg', dark: 'file:../nodes/BuildE2E/builde2e.svg' } as const;
 
 	properties: INodeProperties[] = [
 		{
@@ -45,7 +46,7 @@ export class BuildE2EApi implements ICredentialType {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ queries: ['test'], limit: 1 }),
+			body: { queries: ['test'], limit: 1 },
 		},
 	};
 }

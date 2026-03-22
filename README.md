@@ -50,7 +50,7 @@ Search the web and get structured results.
   - Location — country code for geo-targeted results
   - Include Domains — restrict to specific domains
   - Exclude Domains — exclude specific domains
-  - Engine — `google`, `bing`, `chatgpt`, or `perplexity`
+  - Engine — `google`, `bing`, `chatgpt`, `gemini`, or `perplexity`
 
 Each search result (url, title, description) is output as a separate n8n item.
 

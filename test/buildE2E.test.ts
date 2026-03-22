@@ -1,6 +1,10 @@
 import http from 'https';
 
-const API_KEY = process.env.BUILDE2E_API_KEY || 'uc-fc6823deb92c5dfe44119ef0a5c7e35f1d00b194b288360a';
+const API_KEY = process.env.BUILDE2E_API_KEY;
+if (!API_KEY) {
+	console.error('ERROR: BUILDE2E_API_KEY environment variable is required. Set it in .env or export it.');
+	process.exit(1);
+}
 const BASE_URL = 'https://api.builde2e.com/api/v1';
 
 let passed = 0;

@@ -22,7 +22,7 @@ export const scrapeOperationProperty: INodeProperties = {
 	type: 'options',
 	noDataExpression: true,
 	displayOptions: { show: { resource: ['scrape'] } },
-	options: [{ name: 'Batch Scrape', value: 'batchScrape' }],
+	options: [{ name: 'Batch Scrape', value: 'batchScrape', action: 'Batch scrape' }],
 	default: 'batchScrape',
 };
 
@@ -32,7 +32,7 @@ export const searchOperationProperty: INodeProperties = {
 	type: 'options',
 	noDataExpression: true,
 	displayOptions: { show: { resource: ['search'] } },
-	options: [{ name: 'Web Search', value: 'webSearch' }],
+	options: [{ name: 'Web Search', value: 'webSearch', action: 'Web search' }],
 	default: 'webSearch',
 };
 
@@ -94,7 +94,7 @@ export const scrapeProperties: INodeProperties[] = [
 				type: 'options',
 				options: [
 					{ name: 'OCR (Vision)', value: 'ocr' },
-					{ name: 'Local (pdf-parse)', value: 'local' },
+					{ name: 'Local (Pdf-Parse)', value: 'local' },
 					{ name: 'Auto', value: 'auto' },
 				],
 				default: 'ocr',
@@ -128,35 +128,93 @@ export const scrapeProperties: INodeProperties[] = [
 						name: 'actionType',
 						type: 'options',
 						options: [
-							{ name: 'Click', value: 'click' },
-							{ name: 'Evaluate JS', value: 'evaluate' },
-							{ name: 'Go Back', value: 'goBack' },
-							{ name: 'Navigate', value: 'navigate' },
-							{ name: 'Press Key', value: 'press' },
-							{ name: 'Scroll', value: 'scroll' },
-							{ name: 'Type', value: 'type' },
-							{ name: 'Wait', value: 'wait' },
-							{ name: 'Wait for Response', value: 'waitForResponse' },
-							{ name: 'Wait for Selector', value: 'waitForSelector' },
+							{
+								name: 'Click',
+								value: 'click',
+							},
+							{
+								name: 'Evaluate JS',
+								value: 'evaluate',
+							},
+							{
+								name: 'Go Back',
+								value: 'goBack',
+							},
+							{
+								name: 'Navigate',
+								value: 'navigate',
+							},
+							{
+								name: 'Press Key',
+								value: 'press',
+							},
+							{
+								name: 'Scroll',
+								value: 'scroll',
+							},
+							{
+								name: 'Type',
+								value: 'type',
+							},
+							{
+								name: 'Wait',
+								value: 'wait',
+							},
+							{
+								name: 'Wait for Response',
+								value: 'waitForResponse',
+							},
+							{
+								name: 'Wait for Selector',
+								value: 'waitForSelector',
+							},
 						],
 						default: 'click',
 					},
 					{
-						displayName: 'Selector',
-						name: 'selector',
-						type: 'string',
-						default: '',
-						placeholder: '#submit-btn',
-						displayOptions: {
-							show: { actionType: ['click', 'type', 'scroll', 'waitForSelector'] },
-						},
+						displayName: 'Direction',
+						name: 'direction',
+						type: 'options',
+						options: [
+							{
+								name: 'Down',
+								value: 'down',
+							},
+							{
+								name: 'Up',
+								value: 'up',
+							},
+					],
+						default: 'down',
 					},
 					{
-						displayName: 'Text',
-						name: 'text',
-						type: 'string',
-						default: '',
-						displayOptions: { show: { actionType: ['type'] } },
+						displayName: 'HTTP Method',
+						name: 'method',
+						type: 'options',
+						options: [
+							{
+								name: 'DELETE',
+								value: 'DELETE',
+							},
+							{
+								name: 'GET',
+								value: 'GET',
+							},
+							{
+								name: 'PATCH',
+								value: 'PATCH',
+							},
+							{
+								name: 'POST',
+								value: 'POST',
+							},
+							{
+								name: 'PUT',
+								value: 'PUT',
+							},
+					],
+						default: 'GET',
+						description: 'Filter by HTTP method',
 					},
 					{
 						displayName: 'Key',
@@ -164,7 +222,64 @@ export const scrapeProperties: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						placeholder: 'Enter',
-						displayOptions: { show: { actionType: ['press'] } },
+					},
+					{
+						displayName: 'Milliseconds',
+						name: 'milliseconds',
+						type: 'number',
+						default: 1000
+					},
+					{
+						displayName: 'Script',
+						name: 'script',
+						type: 'string',
+						default: '',
+						placeholder: 'document.querySelector(\'#el\').innerText',
+						description: 'JavaScript code to evaluate on the page',
+					},
+					{
+						displayName: 'Selector',
+						name: 'selector',
+						type: 'string',
+						default: '',
+						placeholder: '#submit-btn',
+					},
+					{
+						displayName: 'State',
+						name: 'state',
+						type: 'options',
+						options: [
+							{
+								name: 'Attached',
+								value: 'attached',
+							},
+							{
+								name: 'Visible',
+								value: 'visible',
+							},
+							{
+								name: 'Hidden',
+								value: 'hidden',
+							},
+							{
+								name: 'Detached',
+								value: 'detached',
+							},
+					],
+						default: 'visible',
+						description: 'Wait until the element reaches this state',
+					},
+					{
+						displayName: 'Text',
+						name: 'text',
+						type: 'string',
+						default: '',
+					},
+					{
+						displayName: 'Timeout (Ms)',
+						name: 'timeout',
+						type: 'number',
+						default: 30000
 					},
 					{
 						displayName: 'URL',
@@ -172,7 +287,6 @@ export const scrapeProperties: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						placeholder: 'https://example.com/page2',
-						displayOptions: { show: { actionType: ['navigate'] } },
 					},
 					{
 						displayName: 'URL Pattern',
@@ -181,73 +295,8 @@ export const scrapeProperties: INodeProperties[] = [
 						default: '',
 						placeholder: '/api/data',
 						description: 'URL substring pattern to match for the network response',
-						displayOptions: { show: { actionType: ['waitForResponse'] } },
 					},
-					{
-						displayName: 'HTTP Method',
-						name: 'method',
-						type: 'options',
-						options: [
-							{ name: 'GET', value: 'GET' },
-							{ name: 'POST', value: 'POST' },
-							{ name: 'PUT', value: 'PUT' },
-							{ name: 'PATCH', value: 'PATCH' },
-							{ name: 'DELETE', value: 'DELETE' },
-						],
-						default: 'GET',
-						description: 'Filter by HTTP method',
-						displayOptions: { show: { actionType: ['waitForResponse'] } },
-					},
-					{
-						displayName: 'Script',
-						name: 'script',
-						type: 'string',
-						typeOptions: { rows: 4 },
-						default: '',
-						placeholder: 'document.querySelector("#el").innerText',
-						description: 'JavaScript code to evaluate on the page',
-						displayOptions: { show: { actionType: ['evaluate'] } },
-					},
-					{
-						displayName: 'Milliseconds',
-						name: 'milliseconds',
-						type: 'number',
-						default: 1000,
-						displayOptions: { show: { actionType: ['wait'] } },
-					},
-					{
-						displayName: 'Direction',
-						name: 'direction',
-						type: 'options',
-						options: [
-							{ name: 'Down', value: 'down' },
-							{ name: 'Up', value: 'up' },
-						],
-						default: 'down',
-						displayOptions: { show: { actionType: ['scroll'] } },
-					},
-					{
-						displayName: 'State',
-						name: 'state',
-						type: 'options',
-						options: [
-							{ name: 'Attached', value: 'attached' },
-							{ name: 'Visible', value: 'visible' },
-							{ name: 'Hidden', value: 'hidden' },
-							{ name: 'Detached', value: 'detached' },
-						],
-						default: 'visible',
-						description: 'Wait until the element reaches this state',
-						displayOptions: { show: { actionType: ['waitForSelector'] } },
-					},
-					{
-						displayName: 'Timeout (ms)',
-						name: 'timeout',
-						type: 'number',
-						default: 30000,
-						displayOptions: { show: { actionType: ['waitForSelector', 'waitForResponse'] } },
-					},
-				],
+			],
 			},
 		],
 	},
@@ -275,7 +324,7 @@ export const searchProperties: INodeProperties[] = [
 		name: 'limit',
 		type: 'number',
 		typeOptions: { minValue: 1, maxValue: 50 },
-		default: 10,
+		default: 50,
 		description: 'Max number of results to return',
 		displayOptions: { show: searchShow },
 	},
@@ -316,10 +365,10 @@ export const searchProperties: INodeProperties[] = [
 				name: 'engine',
 				type: 'options',
 				options: [
-					{ name: 'Google', value: 'google' },
 					{ name: 'Bing', value: 'bing' },
 					{ name: 'ChatGPT', value: 'chatgpt' },
 					{ name: 'Gemini', value: 'gemini' },
+					{ name: 'Google', value: 'google' },
 					{ name: 'Perplexity', value: 'perplexity' },
 				],
 				default: 'google',
