@@ -1,8 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#2563EB"/>
-  <path d="M16 20h8c3.3 0 6 2.7 6 6s-2.7 6-6 6h-8v-12zm4 4v4h4c1.1 0 2-.9 2-2s-.9-2-2-2h-4z" fill="white"/>
-  <path d="M16 34h8c3.3 0 6 2.7 6 6s-2.7 6-6 6h-8v-12zm4 4v4h4c1.1 0 2-.9 2-2s-.9-2-2-2h-4z" fill="white"/>
-  <path d="M34 20h12v4h-8v4h6v4h-6v4h8v4h-12v-20z" fill="white"/>
-  <circle cx="44" cy="44" r="6" fill="white" fill-opacity="0.25"/>
-  <path d="M42 42l4 4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640">
+  <defs>
+    <!-- Rounded hexagonal clip path -->
+    <clipPath id="hex">
+      <path d="M294,45 Q320,30 346,45 L545,160 Q571,175 571,205 L571,435 Q571,465 545,480 L346,595 Q320,610 294,595 L95,480 Q69,465 69,435 L69,205 Q69,175 95,160 Z"/>
+    </clipPath>
+
+    <!-- TOP FACE gradient: warm purple → pink/magenta (left to right) -->
+    <linearGradient id="gTop" gradientUnits="userSpaceOnUse" x1="69" y1="120" x2="571" y2="120">
+      <stop offset="0%" stop-color="#A87CE4"/>
+      <stop offset="48%" stop-color="#C890EE"/>
+      <stop offset="100%" stop-color="#EA8CD6"/>
+    </linearGradient>
+
+    <!-- LEFT FACE gradient: deep indigo → bright blue (diagonal top-left to bottom) -->
+    <linearGradient id="gLeft" gradientUnits="userSpaceOnUse" x1="69" y1="175" x2="320" y2="610">
+      <stop offset="0%" stop-color="#5848C6"/>
+      <stop offset="100%" stop-color="#3C88E8"/>
+    </linearGradient>
+
+    <!-- RIGHT FACE gradient: sky blue → vivid cyan (diagonal top-right to bottom) -->
+    <linearGradient id="gRight" gradientUnits="userSpaceOnUse" x1="571" y1="175" x2="320" y2="610">
+      <stop offset="0%" stop-color="#62AAE8"/>
+      <stop offset="100%" stop-color="#1CE2F0"/>
+    </linearGradient>
+
+    <!-- Inner gradients (darker/deeper versions of each face) -->
+    <linearGradient id="giTop" gradientUnits="userSpaceOnUse" x1="69" y1="120" x2="571" y2="120">
+      <stop offset="0%" stop-color="#7B58CA"/>
+      <stop offset="48%" stop-color="#9468D4"/>
+      <stop offset="100%" stop-color="#AA70CC"/>
+    </linearGradient>
+
+    <linearGradient id="giLeft" gradientUnits="userSpaceOnUse" x1="69" y1="175" x2="320" y2="610">
+      <stop offset="0%" stop-color="#5252C8"/>
+      <stop offset="100%" stop-color="#4870D8"/>
+    </linearGradient>
+
+    <linearGradient id="giRight" gradientUnits="userSpaceOnUse" x1="571" y1="175" x2="320" y2="610">
+      <stop offset="0%" stop-color="#5488DC"/>
+      <stop offset="100%" stop-color="#3CAAE2"/>
+    </linearGradient>
+  </defs>
+
+  <g clip-path="url(#hex)">
+    <!--
+      Outer: T(320,30) TR(571,175) BR(571,465) B(320,610) BL(69,465) TL(69,175)
+      Center: C(320,320)
+      Inner (50%): iT(320,175) iTR(445.5,247.5) iBR(445.5,392.5) iB(320,465) iBL(194.5,392.5) iTL(194.5,247.5)
+    -->
+
+    <!-- TOP FACE outer left: TL → T → iT → iTL -->
+    <polygon points="69,175 320,30 320,175 194.5,247.5" fill="url(#gTop)"/>
+    <!-- TOP FACE outer right: T → TR → iTR → iT -->
+    <polygon points="320,30 571,175 445.5,247.5 320,175" fill="url(#gTop)"/>
+    <!-- TOP FACE inner left: iTL → iT → C -->
+    <polygon points="194.5,247.5 320,175 320,320" fill="url(#giTop)"/>
+    <!-- TOP FACE inner right: iT → iTR → C -->
+    <polygon points="320,175 445.5,247.5 320,320" fill="url(#giTop)"/>
+
+    <!-- LEFT FACE outer upper: TL → BL → iBL → iTL -->
+    <polygon points="69,175 69,465 194.5,392.5 194.5,247.5" fill="url(#gLeft)"/>
+    <!-- LEFT FACE outer lower: BL → B → iB → iBL -->
+    <polygon points="69,465 320,610 320,465 194.5,392.5" fill="url(#gLeft)"/>
+    <!-- LEFT FACE inner upper: iTL → iBL → C -->
+    <polygon points="194.5,247.5 194.5,392.5 320,320" fill="url(#giLeft)"/>
+    <!-- LEFT FACE inner lower: iBL → iB → C -->
+    <polygon points="194.5,392.5 320,465 320,320" fill="url(#giLeft)"/>
+
+    <!-- RIGHT FACE outer upper: TR → BR → iBR → iTR -->
+    <polygon points="571,175 571,465 445.5,392.5 445.5,247.5" fill="url(#gRight)"/>
+    <!-- RIGHT FACE outer lower: BR → B → iB → iBR -->
+    <polygon points="571,465 320,610 320,465 445.5,392.5" fill="url(#gRight)"/>
+    <!-- RIGHT FACE inner upper: iTR → iBR → C -->
+    <polygon points="445.5,247.5 445.5,392.5 320,320" fill="url(#giRight)"/>
+    <!-- RIGHT FACE inner lower: iBR → iB → C -->
+    <polygon points="445.5,392.5 320,465 320,320" fill="url(#giRight)"/>
+
+    <!-- Subtle edge highlights along inner hexagon edges -->
+    <line x1="194.5" y1="247.5" x2="320" y2="175" stroke="white" stroke-width="1" opacity="0.08"/>
+    <line x1="320" y1="175" x2="445.5" y2="247.5" stroke="white" stroke-width="1" opacity="0.08"/>
+    <line x1="445.5" y1="247.5" x2="445.5" y2="392.5" stroke="white" stroke-width="1" opacity="0.06"/>
+    <line x1="445.5" y1="392.5" x2="320" y2="465" stroke="white" stroke-width="1" opacity="0.06"/>
+    <line x1="320" y1="465" x2="194.5" y2="392.5" stroke="white" stroke-width="1" opacity="0.06"/>
+    <line x1="194.5" y1="392.5" x2="194.5" y2="247.5" stroke="white" stroke-width="1" opacity="0.06"/>
+  </g>
 </svg>

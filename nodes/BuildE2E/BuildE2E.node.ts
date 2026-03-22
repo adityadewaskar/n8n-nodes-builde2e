@@ -35,7 +35,7 @@ async function executeScrape(
 
 	const rawUrls = splitCsv(urlsRaw);
 	if (!rawUrls.length) {
-		throw new Error('No URLs provided. Enter at least one URL to scrape.');
+		throw new NodeOperationError(ctx.getNode(), 'No URLs provided. Enter at least one URL to scrape.');
 	}
 	const actions = buildActions(actionsParam as { actionItems?: RawAction[] });
 
