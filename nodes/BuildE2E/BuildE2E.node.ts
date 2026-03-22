@@ -18,7 +18,8 @@ import {
 	searchProperties,
 } from './properties';
 
-function splitCsv(value: string): string[] {
+function splitCsv(value: string | undefined): string[] {
+	if (!value) return [];
 	return value.split(',').map((s) => s.trim()).filter(Boolean);
 }
 
@@ -33,6 +34,9 @@ async function executeScrape(
 	const actionsParam = ctx.getNodeParameter('actions', i) as IDataObject;
 
 	const rawUrls = splitCsv(urlsRaw);
+	if (!rawUrls.length) {
+		throw new Error('No URLs provided. Enter at least one URL to scrape.');
+	}
 	const actions = buildActions(actionsParam as { actionItems?: RawAction[] });
 
 	// Actions belong per-URL (BatchScrapeOptionsSchema doesn't accept top-level actions)
