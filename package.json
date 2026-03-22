@@ -26,7 +26,8 @@
 		"build": "tsc && cp nodes/BuildE2E/BuildE2E.node.json dist/nodes/BuildE2E/ && cp nodes/BuildE2E/builde2e.svg dist/nodes/BuildE2E/",
 		"dev": "tsc --watch",
 		"typecheck": "tsc --noEmit",
-		"clean": "rm -rf dist"
+		"clean": "rm -rf dist",
+		"test": "tsx --require dotenv/config test/buildE2E.test.ts"
 	},
 	"n8n": {
 		"n8nNodesApiVersion": 1,
@@ -46,8 +47,10 @@
 		"n8n-workflow": ">=1.0.0"
 	},
 	"devDependencies": {
+		"@types/node": "^20.0.0",
+		"dotenv": "^17.3.1",
 		"n8n-workflow": "^1.70.0",
-		"typescript": "^5.3.0",
-		"@types/node": "^20.0.0"
+		"tsx": "^4.21.0",
+		"typescript": "^5.3.0"
 	}
 }
