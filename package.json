@@ -16,8 +16,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/builde2e/builde2e",
-		"directory": "packages/n8n-nodes-builde2e"
+		"url": "https://github.com/adityadewaskar/n8n-nodes-builde2e"
+	},
+	"publishConfig": {
+		"access": "public"
 	},
 	"main": "dist/nodes/BuildE2E/BuildE2E.node.js",
 	"scripts": {
